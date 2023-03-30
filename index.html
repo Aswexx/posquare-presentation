@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/league.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		<style>
+			table td:not(:last-child) {
+				border-right: 1px solid #eee;
+			}
+			.reveal table th {
+				text-align: center;
+			}
+			td img {
+				vertical-align: top;
+			}
+
+			.gif {
+				width: 60%;
+			}
+
+			.fe-style {
+				height: 300px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: start;
+				font-size: 22px;
+				text-align: start;
+			}
+
+			.solve {
+				display: flex;
+				flex-direction: column;
+				align-items: start;
+				font-size: 26px;
+			}
+
+			.items-start {
+				display: flex;
+				flex-direction: column;
+				align-items: start;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<h2 style="text-transform: capitalize;">Posquare 專案作品介紹</h2>
+				</section>
+
+				<section>
+					<h2>大綱</h2>
+					<ul>
+						<li>整體運作架構</li>
+						<li>功能與實現方式</li>
+						<li>專案程式碼架構</li>
+						<li>困難點與處理</li>
+						<li>結語</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>整體運作架構</h2>
+					<img class="fragment fade-in" src="./img/pj-struc.png">
+				</section>
+
+				<section>
+					<h2>功能與實現方式</h2>
+				</section>
+
+				<section>
+					<h3>專案實現功能一覽</h3>
+						<ul>
+							<li>註冊、登入</li>
+							<li>發文、評論、關注、圖影上傳或拍照上傳</li>
+							<li>多層評論延伸</li>
+							<li>無限滾動卷軸</li>
+							<li>日夜模式切換</li>
+							<li>即時聊天</li>
+							<li>即時通知</li>
+							<li>LINEPAY 串接</li>
+							<li>後台功能-網站資料視覺化、資料導出</li>
+						</ul>
+				</section>
+
+				<section>
+					<h3>前端使用工具</h3>
+					<ul>
+						<li>Vue 2</li>
+						<li>vuex</li>
+						<li>vue router</li>
+						<li>socket.io-client</li>
+						<li>chart.js / vue-chart.js</li>
+						<li>sass</li>
+						<li>axios</li>
+						<li>jwt-decode</li>
+						<li>date-fns</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>後端使用工具</h3>
+						<ul>
+							<li>Express</li>
+							<li>prisma</li>
+							<li>cookie-parser</li>
+							<li>jsonwebtoken</li>
+							<li>cors</li>
+							<li>bcrypt</li>
+						</ul>
+				</section>
+
+				<section>
+					<h3>後端使用工具</h3>
+					<ul>
+						<li>helmet</li>
+						<li>morgan、winston</li>
+						<li>node-schedule</li>
+						<li>nodemailer</li>
+						<li>redis</li>
+						<li>aws-sdk (s3、secrets manager 相關)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>使用到的 AWS 服務</h3>
+					<ul>
+						<li>S3</li>
+						<li>Cloudfront</li>
+						<li>Route 53</li>
+						<li>Certificate Manager</li>
+						<li>EC2</li>
+						<li>RDS</li>
+						<li>Secret Manager</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>前端路由組件劃分</h3>
+					<img class="fragment fade-in" src="./img/fe-comp-struc.png">
+				</section>
+
+
+				<section>
+					<h3>資料庫設計</h3>
+				</section>
+
+				<section>
+					<img style="width: 80%" src=" ./img/ERD.png">
+				</section>
+
+				<section>
+					<h3>註冊與登入</h3>
+					<img class="fragment fade-in" src="./img/regisrator.png">
+				</section>
+
+				<section>
+					<h3>註冊與登入</h3>
+					<img src="./img/login.png">
+				</section>
+
+				<section>
+					<h3>發文、評論、圖影上傳或拍照上傳</h3>
+					<img class="fragment fade-in" src="./img/content-poster.png">
+				</section>
+
+				<section>
+					<h3>多層評論延伸</h3>
+					<img style="width: 30%" src="./img/infinite-reply.gif">
+					<li class="fragment fade-in">每個 comment item 個別自身判斷有無下一層 comment 群</li>
+				</section>
+
+				<section>
+					<h3>無限滾動卷軸</h3>
+					<img class="gif" src="./img/infinite-scroll.gif">
+					<p class="fragment fade-in">判斷 scrollTop + clientHeight &gt;= scrollHeight - 緩衝值</p>
+				</section>
+
+				<section>
+					<h3>日夜模式切換</h3>
+					<img style="width: 30%;" src="./img/dark-mode.gif">
+					<ul class="items-start">
+						<li>追蹤 prefers-color-scheme: dark</li>
+						<li>額外一組樣式依照全局狀態決定是否套用到 &lt;body&gt; </li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>即時聊天</h3>
+					<img src="./img/real-time-chat.png">
+				</section>
+
+				<section>
+					<h3>即時通知</h3>
+					<img src="./img/real-time-notif.png">
+				</section>
+
+				<section>
+					<h3>linepay 串接</h3>
+					<img src="./img/linepay.png">
+				</section>
+
+				<section>
+					<h3>linepay 支付影響功能</h3>
+					<ul class="items-start">
+						<li>提升顯示優先度</li>
+						<li>聊天紀錄保存</li>
+					</ul>
+				</section>
+
+				<section>
+					<h3>後台功能-統計圖表、資料導出</h3>
+					<img style="width: 50%;" src="./img/chart-hbar.gif">
+				</section>
+
+				<section>
+					<h3>後台功能-統計圖表、資料導出</h3>
+					<img style="width: 50%;" src="./img/chart-line.gif">
+				</section>
+
+				<section>
+					<h2>專案程式碼架構</h2>
+				</section>
+				<section>
+					<h3>前端</h3>
+					<img style="width: 20%;" src="./img/fe-structure-1.png">
+					<img style="width: 20%; vertical-align: top;" src="./img/fe-structure-2.png">
+				</section>
+				<section>
+					<h3>後端</h3>
+					<img style="width: 15%;" src="./img/bk-structure.png">
+				</section>
+				<section>
+					<h3>前端 RWD 設計</h3>
+						<table>
+							<thead>
+								<tr>
+									<th>&lt;576px</th>
+									<th>576px ~ 768px</th>
+									<th>&gt;768px</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><img src="./img/mobileview.png"></td>
+									<td><img src="./img/midview.png"></td>
+									<td><img src="./img/fullview.png"></td>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+				</section>
+
+				<section>
+					<h3>前端樣式處理</h3>
+					<div class="fe-style">
+						<li>未使用 ui 框架，有使用 sass 預處理器</li>
+						<li>部分較複雜的組件直接引用外部的 vue 組件(如多選搜尋器、日期選擇器、表情符號輸入)</li>
+						<li>大部分組件均使用 scoped 避免樣式覆蓋</li>
+						<li>全局性的樣式(例如 css reset、sass 變數、mixin 等)放在 assets 目錄中，並在根組件中引入，不 scoped</li>
+						<li>作為基底的 css grid 佈局寫在上位的路由組件(MainView)中且不 scoped</li>
+					</div>
+				</section>
+
+				<section>
+					<h2>遭遇困難點與應對</h2>
+					<h5 style="color: cyan;">IOS 設備 safari、chrome 瀏覽器跨域請求無法夾帶 cookie</h5>
+					<div class="solve">
+						<h5>應對方式：</h5>
+						<li>IOS 設備的 access token 改為透過 headers 夾帶</li>
+						<li>access token 到期時的請求會檢查與最初取得 access token 的請求 IP 是否一致 </li>
+					</div>
+				</section>
+
+				<section>
+					<h2>遭遇困難點與應對</h2>
+					<h5 style="color: cyan;"> Redis cache 請求內容方式的取捨</h5>
+					<div class="solve">
+						<h5>應對方式：</h5>
+						<li style="list-style: none; text-align: start;">依照操作特性考量，例如全站最新推文，原則為 10 分鐘更新一次快取，
+							但若有使用者新增或刪除就直接更新一次</li>
+					</div>
+				</section>
+
+				<section>
+					<h2>遭遇困難點與應對</h2>
+					<h5 style="color: cyan;">本地運行環境如何重現在 EC2 上</h5>
+					<div class="solve">
+						<h5>應對方式：</h5>
+						<li>學習使用 docker compose</li>
+						<li>學習如何達成基本的多容器間的溝通</li>
+					</div>
+				</section>
+
+				<section>
+					<h2>結語</h2>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				transition: 'fade',
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
